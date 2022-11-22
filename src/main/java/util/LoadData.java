@@ -10,7 +10,7 @@ import model.list.ListAdj;
 import model.matriz.GraphMatriz;
 
 public class LoadData {
-    public static GraphMatriz loadAdj(String fileName) {
+    public static double[][] loadAdj(String fileName) {
         boolean directed = false;
         int amountVertices;
 
@@ -30,8 +30,6 @@ public class LoadData {
             for (int i = 0; i < amountVertices; i++) {
                 graph.addVertex(new Vertex(buffer.readLine()));
             }
-
-            String verticeInicial = buffer.readLine();
             
             while (buffer.ready()) {
                 line = buffer.readLine();
@@ -42,7 +40,7 @@ public class LoadData {
             buffer.close();
             fileReader.close();
 
-            return graph;
+            return graph.getMat();
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -75,8 +73,6 @@ public class LoadData {
             for (int i = 0; i < amountVertices; i++) {
                 graph.addVertex(new Vertex(buffer.readLine()));
             }
-            
-            String verticeInicial = buffer.readLine();
             
             while (buffer.ready()) {
                 line = buffer.readLine();

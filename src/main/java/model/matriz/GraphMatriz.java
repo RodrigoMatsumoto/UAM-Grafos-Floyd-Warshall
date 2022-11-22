@@ -12,6 +12,10 @@ public class GraphMatriz implements Graph {
     private HashMap<String, Integer> names;
     private int currentNumVertex;
 
+    public double[][] getMat() {
+        return mat;
+    }
+
     public GraphMatriz(int numVertex, boolean directed) {
         mat = new double[numVertex][numVertex];
         this.names = new HashMap<>();
