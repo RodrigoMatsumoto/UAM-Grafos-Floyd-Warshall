@@ -1,36 +1,38 @@
 package model;
 
-import model.matriz.GraphMatriz;
-
-import java.io.*;
 import java.lang.*;
-import java.util.*;
 
 public class FloydWarshall {
     final static double INF = Double.MAX_VALUE;
+    private double[][] graph;
+    private int vertexAmount;
 
-    public void floydWarshall(double graph[][], int vertexAmount ) {
-        double dist[][] = new double[vertexAmount][vertexAmount];
+
+    public FloydWarshall(double graph[][], int vertexAmount) {
+        this.graph = graph;
+        this.vertexAmount = vertexAmount;
+    }
+
+    public void floydWarshall() {
+        double dist[][] = new double[this.vertexAmount][this.vertexAmount];
         int i, j, k;
 
         initializeMatrix(graph);
 
-        for (i = 0; i < vertexAmount; i++)
-            for (j = 0; j < vertexAmount; j++)
+        for (i = 0; i < this.vertexAmount; i++)
+            for (j = 0; j < this.vertexAmount; j++)
                 dist[i][j] = graph[i][j];
 
-        for (k = 0; k < vertexAmount; k++) {
-            for (i = 0; i < vertexAmount; i++) {
-                for (j = 0; j < vertexAmount; j++) {
-                    if (dist[i][k] + dist[k][j]
-                            < dist[i][j])
-                        dist[i][j]
-                                = dist[i][k] + dist[k][j];
+        for (k = 0; k < this.vertexAmount; k++) {
+            for (i = 0; i < this.vertexAmount; i++) {
+                for (j = 0; j < this.vertexAmount; j++) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
                 }
             }
         }
 
-        printSolution(dist);
+        printResolution(dist);
     }
 
     void initializeMatrix(double matrix[][]) {
@@ -45,9 +47,10 @@ public class FloydWarshall {
         }
     }
 
-    void printSolution(double dist[][]) {
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
+    void printResolution(double dist[][]) {
+        System.out.println("Matrix by Floyd Warshall");
+        for (int i = 0; i < dist.length; ++i) {
+            for (int j = 0; j < dist[i].length; ++j) {
                 if (dist[i][j] == INF)
                     System.out.print("INF ");
                 else
